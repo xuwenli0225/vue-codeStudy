@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
-    <p @click="$store.commit('add')">{{$store.state.counter}}</p>
-    <p @click="$store.dispatch('add')">async:{{$store.state.counter}}</p>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+<div id="app">
+  <p @click="$store.commit('add')">{{ $store.state.counter }}</p>
+  <p @click="$store.dispatch('add')">async:{{ $store.state.counter }}</p>
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
   </div>
+  <router-view />
+</div>
 </template>
 
 <style>
