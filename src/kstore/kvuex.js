@@ -5,23 +5,28 @@ let _Vue
 
 class Store {
   constructor(options) {
-    // 保存mutations
+    // 保存mutations、actions，供dispatch、commit调用返回对应的方法
     this._mutations = options.mutations
     this._actions = options.actions
+    // 保存getters
     this._wrapperGetters = options.getters
     // 定义computed选项
 
     const computed = {}
     this.getters = {}
     const store = this
+    // {doubleCounter(state) {}}
     Object.keys(this._wrapperGetters).forEach(key => {
       // 获取用户定义的getters
       const fn = store._wrapperGetters[key]
-      // 转为computed可以使用的无参数形式
+      //把每一个getters添加到自定义的computed中 转为computed可以使用的无参数形式
       computed[key] = function () {
         return fn(store.state)
       }
+      // 为getters定义只读属性
       Object.defineProperty(store.getters, key, {
+        // *********************************************
+        // vue中的数据做了代理，通过Key可以直接访问
         get: () => store._vm[key]
       })
     })
@@ -30,6 +35,7 @@ class Store {
       data: {
         $$state: options.state
       },
+      // computed没有参数
       computed
     })
 
