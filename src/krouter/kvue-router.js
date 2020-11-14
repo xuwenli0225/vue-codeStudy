@@ -96,3 +96,11 @@ VueRouter.install = function (Vue) {
 }
 
 export default VueRouter
+
+// 实现嵌套路由：
+// 1.在VueRouter的constructor中用defineReactive()定义响应式matched,初始值为[]
+// 2.在constructor中执行this.match()
+// 3.this.match(),有children一直递归收集route
+// 4.router-view中定义routeView = true,detpth = 0，
+// component = null,  parent = this.$parent
+// 5.while(parent),depth++,跳出循环后返回matched[depth]对应的route.component
